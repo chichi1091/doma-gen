@@ -71,6 +71,7 @@ public class DaoDescFactory {
     classDescSupport.addImportName(daoDesc, ClassConstants.Insert);
     classDescSupport.addImportName(daoDesc, ClassConstants.Update);
     classDescSupport.addImportName(daoDesc, ClassConstants.Delete);
+    classDescSupport.addImportName(daoDesc, ClassConstants.ConfigAutowireable);
     if (configClassName != null) {
       classDescSupport.addImportName(daoDesc, configClassName);
     }

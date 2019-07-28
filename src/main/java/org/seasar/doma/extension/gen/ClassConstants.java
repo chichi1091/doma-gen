@@ -77,6 +77,7 @@ public enum ClassConstants {
   Config("org.seasar.doma.jdbc", "Config"),
   /** */
   bytes("", "byte[]"),
+  ConfigAutowireable("org.seasar.doma.boot", "ConfigAutowireable")
   ;
 
   private final String packageName;
