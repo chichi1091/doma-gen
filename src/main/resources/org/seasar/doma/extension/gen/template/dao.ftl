@@ -20,6 +20,14 @@ import ${importName};
 @Dao<#if configClassSimpleName??>(config = ${configClassSimpleName}.class)</#if>
 public interface ${simpleName} {
 
+    @Select
+    @Sql("select /*%expand*/* from ${entityDesc.tableName}")
+    List<<#if entityDesc.entityPrefix??>${entityDesc.entityPrefix}</#if>${entityDesc.simpleName}<#if entityDesc.entitySuffix??>${entityDesc.entitySuffix}</#if>> selectAll();
+
+    @Script
+    @Sql("delete from ${entityDesc.tableName}")
+    void deleteAll();
+
 <#if entityDesc.idEntityPropertyDescs?size gt 0>
     /**
 <#list entityDesc.idEntityPropertyDescs as property>

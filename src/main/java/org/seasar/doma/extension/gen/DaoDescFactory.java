@@ -56,6 +56,9 @@ public class DaoDescFactory {
     }
     daoDesc.setEntityDesc(entityDesc);
     daoDesc.setTemplateName(Constants.DAO_TEMPLATE);
+
+    daoDesc.setTableName(entityDesc.getTableName());
+
     handleImportName(daoDesc, entityDesc);
     return daoDesc;
   }
@@ -71,7 +74,11 @@ public class DaoDescFactory {
     classDescSupport.addImportName(daoDesc, ClassConstants.Insert);
     classDescSupport.addImportName(daoDesc, ClassConstants.Update);
     classDescSupport.addImportName(daoDesc, ClassConstants.Delete);
+
     classDescSupport.addImportName(daoDesc, ClassConstants.ConfigAutowireable);
+    classDescSupport.addImportName(daoDesc, ClassConstants.Sql);
+    classDescSupport.addImportName(daoDesc, ClassConstants.Script);
+
     if (configClassName != null) {
       classDescSupport.addImportName(daoDesc, configClassName);
     }

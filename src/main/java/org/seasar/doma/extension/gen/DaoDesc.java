@@ -16,6 +16,8 @@ public class DaoDesc extends ClassDesc {
   /** テンプレート名 */
   protected String templateName;
 
+  protected String tableName;
+
   /**
    * 設定クラスの単純名を返します。
    *
@@ -68,5 +70,13 @@ public class DaoDesc extends ClassDesc {
    */
   public String getTemplateName() {
     return templateName;
+  }
+
+  public void setTableName(String tableName) {
+    this.tableName = tableName;
+  }
+
+  public String getTableName() {
+    return tableName;
   }
 }
