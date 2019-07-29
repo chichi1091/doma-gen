@@ -75,9 +75,11 @@ public class DaoDescFactory {
     classDescSupport.addImportName(daoDesc, ClassConstants.Update);
     classDescSupport.addImportName(daoDesc, ClassConstants.Delete);
 
+    classDescSupport.addImportName(daoDesc, ClassConstants.Result);
     classDescSupport.addImportName(daoDesc, ClassConstants.ConfigAutowireable);
     classDescSupport.addImportName(daoDesc, ClassConstants.Sql);
     classDescSupport.addImportName(daoDesc, ClassConstants.Script);
+    classDescSupport.addImportName(daoDesc, ClassConstants.List);
 
     if (configClassName != null) {
       classDescSupport.addImportName(daoDesc, configClassName);

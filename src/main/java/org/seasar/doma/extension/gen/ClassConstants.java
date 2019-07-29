@@ -78,9 +78,11 @@ public enum ClassConstants {
   /** */
   bytes("", "byte[]"),
 
+  Result("org.seasar.doma.jdbc", "Result"),
   ConfigAutowireable("org.seasar.doma.boot", "ConfigAutowireable"),
-  Sql("org.seasar.doma", "Sql"),
+  Sql("org.seasar.doma.experimental", "Sql"),
   Script("org.seasar.doma", "Script"),
+  List("java.util", "List"),
   ;
 
   private final String packageName;
