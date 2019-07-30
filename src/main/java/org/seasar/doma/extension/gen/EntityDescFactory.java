@@ -1,22 +1,16 @@
 package org.seasar.doma.extension.gen;
 
+import org.seasar.doma.*;
+import org.seasar.doma.extension.gen.internal.message.Message;
+import org.seasar.doma.extension.gen.internal.util.ClassUtil;
+import org.seasar.doma.extension.gen.internal.util.StringUtil;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import org.seasar.doma.Column;
-import org.seasar.doma.Entity;
-import org.seasar.doma.GeneratedValue;
-import org.seasar.doma.Id;
-import org.seasar.doma.SequenceGenerator;
-import org.seasar.doma.TableGenerator;
-import org.seasar.doma.Transient;
-import org.seasar.doma.Version;
-import org.seasar.doma.extension.gen.internal.message.Message;
-import org.seasar.doma.extension.gen.internal.util.ClassUtil;
-import org.seasar.doma.extension.gen.internal.util.StringUtil;
 
 /**
  * エンティティ記述のファクトリです。
@@ -372,8 +366,6 @@ public class EntityDescFactory {
         classDescSupport.addImportName(entityDesc, ClassConstants.Version);
       }
       classDescSupport.addImportName(entityDesc, propertyDesc.getPropertyClassName());
-      classDescSupport.addImportName(entityDesc, ClassConstants.AllArgsConstructor);
-      classDescSupport.addImportName(entityDesc, ClassConstants.Builder);
     }
   }
 
