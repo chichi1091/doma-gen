@@ -1,10 +1,11 @@
 package org.seasar.doma.extension.gen;
 
+import org.seasar.doma.extension.gen.dialect.GenDialect;
+
+import javax.sql.DataSource;
 import java.io.File;
 import java.sql.Driver;
 import java.util.List;
-import javax.sql.DataSource;
-import org.seasar.doma.extension.gen.dialect.GenDialect;
 
 /**
  * グローバルなファクトリです。
@@ -210,7 +211,7 @@ public class GlobalFactory {
    * @param templatePrimaryDir テンプレートファイルを格納したプライマリディレクトリ、プライマリディレクトリを使用しない場合{@code null}
    * @return ジェネレータ
    */
-  public Generator createGenerator(String templateEncoding, File templatePrimaryDir) {
-    return new Generator(templateEncoding, templatePrimaryDir);
+  public Generator createGenerator(String templateEncoding, File templatePrimaryDir, String targetLanguage) {
+    return new Generator(templateEncoding, templatePrimaryDir, targetLanguage);
   }
 }

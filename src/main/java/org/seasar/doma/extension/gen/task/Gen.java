@@ -1,40 +1,20 @@
 package org.seasar.doma.extension.gen.task;
 
-import java.io.File;
-import java.sql.Driver;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
-import javax.sql.DataSource;
-import org.seasar.doma.extension.gen.DaoDesc;
-import org.seasar.doma.extension.gen.DaoDescFactory;
-import org.seasar.doma.extension.gen.EntityDesc;
-import org.seasar.doma.extension.gen.EntityDescFactory;
-import org.seasar.doma.extension.gen.EntityListenerDesc;
-import org.seasar.doma.extension.gen.EntityListenerDescFactory;
-import org.seasar.doma.extension.gen.EntityPropertyClassNameResolver;
-import org.seasar.doma.extension.gen.EntityPropertyDescFactory;
-import org.seasar.doma.extension.gen.GenException;
-import org.seasar.doma.extension.gen.GenerationContext;
-import org.seasar.doma.extension.gen.Generator;
-import org.seasar.doma.extension.gen.Logger;
-import org.seasar.doma.extension.gen.NamingType;
-import org.seasar.doma.extension.gen.ResultSetMetaReader;
-import org.seasar.doma.extension.gen.SqlDesc;
-import org.seasar.doma.extension.gen.SqlDescFactory;
-import org.seasar.doma.extension.gen.SqlTestCaseDesc;
-import org.seasar.doma.extension.gen.SqlTestCaseDescFactory;
-import org.seasar.doma.extension.gen.SqlTestSuiteDesc;
-import org.seasar.doma.extension.gen.SqlTestSuiteDescFactory;
-import org.seasar.doma.extension.gen.TableMeta;
-import org.seasar.doma.extension.gen.TableMetaReader;
+import org.seasar.doma.extension.gen.*;
 import org.seasar.doma.extension.gen.dialect.GenDialect;
 import org.seasar.doma.extension.gen.dialect.GenDialectRegistry;
 import org.seasar.doma.extension.gen.internal.message.Message;
 import org.seasar.doma.extension.gen.internal.util.AssertionUtil;
 import org.seasar.doma.extension.gen.internal.util.FileUtil;
 import org.seasar.doma.extension.gen.internal.util.JdbcUtil;
+
+import javax.sql.DataSource;
+import java.io.File;
+import java.sql.Driver;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * コードを生成します。
@@ -144,6 +124,8 @@ public class Gen extends AbstractTask {
 
   /** SQLテストケースの設定 */
   protected SqlTestCaseConfig sqlTestCaseConfig;
+
+  protected String targetLanguage = "java";
 
   /**
    * JDBC接続ユーザーを設定します。
@@ -525,7 +507,7 @@ public class Gen extends AbstractTask {
    * @return ジェネレータ
    */
   protected Generator createGenerator() {
-    return globalFactory.createGenerator(templateEncoding, templatePrimaryDir);
+    return globalFactory.createGenerator(templateEncoding, templatePrimaryDir, targetLanguage);
   }
 
   @Override
@@ -592,7 +574,7 @@ public class Gen extends AbstractTask {
    */
   protected void generateEntity(EntityDesc entityDesc) {
     File javaFile =
-        FileUtil.createJavaFile(entityConfig.getDestDir(), entityDesc.getQualifiedName());
+        FileUtil.createSourceFile(entityConfig.getDestDir(getTargetLanguage()), entityDesc.getQualifiedName(), getExtension());
     GenerationContext context =
         new GenerationContext(
             entityDesc,
@@ -610,7 +592,7 @@ public class Gen extends AbstractTask {
    */
   protected void generateEntityListener(EntityListenerDesc entityListenerDesc) {
     File javaFile =
-        FileUtil.createJavaFile(entityConfig.getDestDir(), entityListenerDesc.getQualifiedName());
+        FileUtil.createSourceFile(entityConfig.getDestDir(getTargetLanguage()), entityListenerDesc.getQualifiedName(), getExtension());
     GenerationContext context =
         new GenerationContext(
             entityListenerDesc,
@@ -627,7 +609,7 @@ public class Gen extends AbstractTask {
    * @param daoDesc Dao記述
    */
   protected void generateDao(DaoDesc daoDesc) {
-    File javaFile = FileUtil.createJavaFile(daoConfig.getDestDir(), daoDesc.getQualifiedName());
+    File javaFile = FileUtil.createSourceFile(daoConfig.getDestDir(), daoDesc.getQualifiedName(), getExtension());
     GenerationContext context =
         new GenerationContext(
             daoDesc,
@@ -661,7 +643,7 @@ public class Gen extends AbstractTask {
    */
   protected void generateSqlTest(SqlTestCaseDesc sqlTestCaseDesc) {
     File javaFile =
-        FileUtil.createJavaFile(sqlTestCaseConfig.getDestDir(), sqlTestCaseDesc.getQualifiedName());
+        FileUtil.createSourceFile(sqlTestCaseConfig.getDestDir(), sqlTestCaseDesc.getQualifiedName(), getExtension());
     GenerationContext context =
         new GenerationContext(
             sqlTestCaseDesc,
@@ -670,5 +652,17 @@ public class Gen extends AbstractTask {
             sqlTestCaseConfig.getEncoding(),
             true);
     generator.generate(context);
+  }
+
+  protected void setTargetLanguage(String targetLanguage) {
+    this.targetLanguage = targetLanguage;
+  }
+
+  protected String getTargetLanguage() {
+    return this.targetLanguage;
+  }
+
+  protected String getExtension() {
+    return "java".equals(getTargetLanguage()) ? "java" : "kt";
   }
 }

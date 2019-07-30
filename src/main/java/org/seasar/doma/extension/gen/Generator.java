@@ -7,18 +7,12 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.Charset;
-import java.util.Locale;
 import org.seasar.doma.extension.gen.internal.message.Message;
 import org.seasar.doma.extension.gen.internal.util.IOUtil;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.util.Locale;
 
 /**
  * ジェネレータです。
@@ -40,7 +34,7 @@ public class Generator {
 
   /** インスタンスを構築します。 */
   protected Generator() {
-    this("UTF-8", null);
+    this("UTF-8", null, "java");
   }
 
   /**
@@ -49,7 +43,7 @@ public class Generator {
    * @param templateEncoding テンプレートファイルのエンコーディング
    * @param templatePrimaryDir テンプレートファイルを格納したプライマリディレクトリ、プライマリディレクトリを使用しない場合{@code null}
    */
-  public Generator(String templateEncoding, File templatePrimaryDir) {
+  public Generator(String templateEncoding, File templatePrimaryDir, String targetLanguage) {
     if (templateEncoding == null) {
       throw new NullPointerException("templateFileEncoding");
     }
@@ -58,7 +52,7 @@ public class Generator {
     configuration.setSharedVariable("currentDate", new OnDemandDateModel());
     configuration.setEncoding(Locale.getDefault(), templateEncoding);
     configuration.setNumberFormat("0.#####");
-    configuration.setTemplateLoader(createTemplateLoader(templatePrimaryDir));
+    configuration.setTemplateLoader(createTemplateLoader(templatePrimaryDir, targetLanguage));
   }
 
   /**
@@ -67,7 +61,7 @@ public class Generator {
    * @param templateFilePrimaryDir テンプレートファイルを格納したプライマリディレクトリ、プライマリディレクトリを使用しない場合{@code null}
    * @return {@link TemplateLoader}
    */
-  protected TemplateLoader createTemplateLoader(File templateFilePrimaryDir) {
+  protected TemplateLoader createTemplateLoader(File templateFilePrimaryDir, String targetLanguage) {
     TemplateLoader primary = null;
     if (templateFilePrimaryDir != null) {
       try {
@@ -76,7 +70,7 @@ public class Generator {
         throw new GenException(Message.DOMAGEN9001, e, e);
       }
     }
-    TemplateLoader secondary = new ResourceTemplateLoader(DEFAULT_TEMPLATE_DIR_NAME);
+    TemplateLoader secondary = new ResourceTemplateLoader(DEFAULT_TEMPLATE_DIR_NAME + "/" + targetLanguage);
     if (primary == null) {
       return secondary;
     }

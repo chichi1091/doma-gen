@@ -1,7 +1,8 @@
 package org.seasar.doma.extension.gen.task;
 
-import java.io.File;
 import org.apache.tools.ant.types.DataType;
+
+import java.io.File;
 
 /**
  * エンティティの設定です。
@@ -229,9 +230,9 @@ public class EntityConfig extends DataType {
     this.entityPropertyClassNamesFile = entityPropertyClassNamesFile;
   }
 
-  public File getDestDir() {
+  public File getDestDir(String targetLanguage) {
     if (destDir == null) {
-      destDir = new File(baseDir != null ? baseDir : getProject().getBaseDir(), "src/main/java");
+      destDir = new File(baseDir != null ? baseDir : getProject().getBaseDir(), "src/main/" + targetLanguage);
     }
     return destDir;
   }
