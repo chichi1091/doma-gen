@@ -372,6 +372,7 @@ public class EntityDescFactory {
         classDescSupport.addImportName(entityDesc, ClassConstants.Version);
       }
       classDescSupport.addImportName(entityDesc, propertyDesc.getPropertyClassName());
+      classDescSupport.addImportName(entityDesc, ClassConstants.AllArgsConstructor);
     }
   }
 

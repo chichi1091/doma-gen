@@ -23,6 +23,7 @@ import ${importName};
 <#if showCatalogName && catalogName?? || showSchemaName && schemaName?? || showTableName && tableName??>
 @Table(<#if showCatalogName && catalogName??>catalog = "${catalogName}"</#if><#if showSchemaName && schemaName??><#if showCatalogName && catalogName??>, </#if>schema = "${schemaName}"</#if><#if showTableName><#if showCatalogName && catalogName?? || showSchemaName && schemaName??>, </#if>name = "${tableName}"</#if>)
 </#if>
+@AllArgsConstructor
 public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if><#if superclassSimpleName??> extends ${superclassSimpleName}</#if> {
 <#list ownEntityPropertyDescs as property>
 
@@ -48,7 +49,7 @@ public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySu
   <#if property.showColumnName && property.columnName??>
     @Column(name = "${property.columnName}")
   </#if>
-    <#if !useAccessor>public </#if>${property.propertyClassSimpleName} ${property.name};
+    <#if !useAccessor>public final </#if>${property.propertyClassSimpleName} ${property.name};
 </#list>
 <#if originalStatesPropertyName??>
 

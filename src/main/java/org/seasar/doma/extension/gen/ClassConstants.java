@@ -83,6 +83,7 @@ public enum ClassConstants {
   Sql("org.seasar.doma.experimental", "Sql"),
   Script("org.seasar.doma", "Script"),
   List("java.util", "List"),
+  AllArgsConstructor("lombok", "AllArgsConstructor"),
   ;
 
   private final String packageName;
