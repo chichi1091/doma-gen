@@ -1,5 +1,9 @@
 package org.seasar.doma.extension.gen;
 
+import org.seasar.doma.extension.gen.dialect.GenDialect;
+import org.seasar.doma.extension.gen.internal.message.Message;
+import org.seasar.doma.extension.gen.internal.util.StringUtil;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Date;
@@ -9,9 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.regex.Pattern;
-import org.seasar.doma.extension.gen.dialect.GenDialect;
-import org.seasar.doma.extension.gen.internal.message.Message;
-import org.seasar.doma.extension.gen.internal.util.StringUtil;
 
 /**
  * エンティティプロパティ記述のファクトリです。
@@ -130,6 +131,9 @@ public class EntityPropertyDescFactory {
     handleShowColumnName(entityDesc, propertyDesc, columnMeta);
     handleVersion(entityDesc, propertyDesc, columnMeta);
     propertyDesc.setEntityClassName(entityDesc.getQualifiedName());
+
+    propertyDesc.setNullable(columnMeta.isNullable());
+
     return propertyDesc;
   }
 

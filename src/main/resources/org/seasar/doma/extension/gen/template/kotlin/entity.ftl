@@ -43,6 +43,6 @@ data class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuff
   <#if property.showColumnName && property.columnName??>
     @Column(name = "${property.columnName}")
   </#if>
-  <#if !useAccessor>  val </#if>${property.name}: ${property.propertyClassSimpleName}<#if property_has_next>,</#if>
+  <#if !useAccessor>  val </#if>${property.name}: ${property.propertyClassSimpleName}<#if property.nullable>?</#if><#if property_has_next>,</#if>
 </#list>
 )

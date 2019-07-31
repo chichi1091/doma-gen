@@ -66,6 +66,8 @@ public class EntityPropertyDesc {
   /** エンティティのクラス名 */
   protected String entityClassName;
 
+  protected boolean nullable;
+
   /**
    * 名前を設定します。
    *
@@ -349,5 +351,12 @@ public class EntityPropertyDesc {
    */
   public void setEntityClassName(String entityClassName) {
     this.entityClassName = entityClassName;
+  }
+
+  public boolean isNullable() {
+    return nullable;
+  }
+  public void setNullable(boolean nullable) {
+    this.nullable = nullable;
   }
 }
