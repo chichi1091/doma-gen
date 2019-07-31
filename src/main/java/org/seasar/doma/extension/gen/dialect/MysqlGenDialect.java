@@ -6,6 +6,8 @@ import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
+
 import org.seasar.doma.extension.gen.ClassConstants;
 import org.seasar.doma.extension.gen.ColumnMeta;
 
@@ -52,9 +54,9 @@ public class MysqlGenDialect extends StandardGenDialect {
     classNameMap.put("double precision unsigned", Double.class.getName());
 
     // 日付と時間型
-    classNameMap.put("date", LocalDate.class.getName());
-    classNameMap.put("datetime", LocalDateTime.class.getName());
-    classNameMap.put("timestamp", LocalDateTime.class.getName());
+    classNameMap.put("date", Date.class.getName());
+    classNameMap.put("datetime", Date.class.getName());
+    classNameMap.put("timestamp", Date.class.getName());
     classNameMap.put("time", LocalTime.class.getName());
     classNameMap.put("year", Short.class.getName());
 
@@ -82,7 +84,7 @@ public class MysqlGenDialect extends StandardGenDialect {
   @Override
   public String getMappedPropertyClassName(ColumnMeta columnMeta) {
     if ("bit".equals(columnMeta.getTypeName()) || "tinyint".equals(columnMeta.getTypeName())) {
-      return columnMeta.getLength() <= 1 ? Boolean.class.getName() : Byte.class.getName();
+      return columnMeta.getLength() <= 1 ? Boolean.class.getName() : Short.class.getName();
     }
     if ("tinyint unsigned".equals(columnMeta.getTypeName())) {
       return columnMeta.getLength() <= 1 ? Boolean.class.getName() : Short.class.getName();

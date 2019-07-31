@@ -125,7 +125,7 @@ public class Gen extends AbstractTask {
   /** SQLテストケースの設定 */
   protected SqlTestCaseConfig sqlTestCaseConfig;
 
-  protected String targetLanguage = "java";
+  protected String targetLanguage = "kotlin";
 
   /**
    * JDBC接続ユーザーを設定します。
@@ -609,7 +609,7 @@ public class Gen extends AbstractTask {
    * @param daoDesc Dao記述
    */
   protected void generateDao(DaoDesc daoDesc) {
-    File javaFile = FileUtil.createSourceFile(daoConfig.getDestDir(), daoDesc.getQualifiedName(), getExtension());
+    File javaFile = FileUtil.createSourceFile(daoConfig.getDestDir(getTargetLanguage()), daoDesc.getQualifiedName(), getExtension());
     GenerationContext context =
         new GenerationContext(
             daoDesc,

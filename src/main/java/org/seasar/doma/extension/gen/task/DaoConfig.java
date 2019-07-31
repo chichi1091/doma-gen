@@ -74,9 +74,9 @@ public class DaoConfig extends DataType {
     this.configClassName = configClassName;
   }
 
-  public File getDestDir() {
+  public File getDestDir(String targetLanguage) {
     if (destDir == null) {
-      destDir = new File(baseDir != null ? baseDir : getProject().getBaseDir(), "src/main/java");
+      destDir = new File(baseDir != null ? baseDir : getProject().getBaseDir(), "src/main/" + targetLanguage);
     }
     return destDir;
   }
